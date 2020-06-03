@@ -5,24 +5,23 @@ let boxes = [];
 let desk;
 let currentTarget;
 let body;
-exportBoxes = () => {
+exportScrapes = () => {
   let json = [];
   boxes.forEach(box => {
-    let jso = box.getBoxStyles();
+    let jso = box.getScrapStyles();
     json.push(jso);
   });
   return JSON.stringify(json);
 };
-class Box {
+class Scrap {
   constructor(style, content) {
     this.element = document.createElement("div");
-    this.element.innerHTML = "<!-- all inline styles on .box will be saved -->";
+    this.element.innerHTML =
+      "<!-- all styles on .box and all its html contents will be saved -->";
     console.log("style, content", style, content);
 
     this.elementContent = document.createElement("div"); // for shaping content
     this.elementContent.className = "content";
-    this.elementContent.innerHTML =
-      "<!-- all changes inside .content will be saved -->";
     if (content) {
       this.elementContent.innerHTML += decodeURI(content);
     } else {
@@ -84,16 +83,18 @@ class Box {
     this.element.addEventListener("drop", drop, false);
   }
 
-  getBoxStyles() {
+  getScrapStyles() {
     const style = this.element.style.cssText;
-    const html = encodeURI(this.elementContent.innerHTML);
+    const html = encodeURI(this.elementContent.outerHTML);
     return { style, html };
   }
 }
 
 start = {};
 window.mouseUp = target => {
-  document.body.className = "";
+  document.body.classList.remove("isDragging");
+  document.body.classList.remove("move");
+  document.body.classList.remove("resize");
   window.removeEventListener("mousemove", divMove, true);
   window.removeEventListener("mousemove", divResize, true);
 };
@@ -111,12 +112,13 @@ window.mouseDown = e => {
     10
   );
   //   if space is held down move, else resize
+  document.body.classList.add("isDragging");
   if (e.metaKey) {
     window.addEventListener("mousemove", divMove, true);
-    document.body.className = "isDragging move";
+    document.body.classList.add("move");
   } else {
     window.addEventListener("mousemove", divResize, true);
-    document.body.className = "isDragging resize";
+    document.body.classList.add("resize");
   }
 
   window.addEventListener("mouseup", mouseUp, false);
@@ -135,7 +137,7 @@ window.divResize = e => {
   currentTarget.style.height = start.height + e.clientY - start.y + "px";
 };
 
-defaultBox = {
+defaultScrap = {
   title: "Title",
   content: "Content",
   dimensions: {
@@ -149,8 +151,8 @@ defaultBox = {
   background: "#fff"
 };
 
-newBox = () => {
-  new Box();
+newScrap = () => {
+  new Scrap();
   //   moveListener();
 };
 
@@ -173,10 +175,10 @@ window.onload = event => {
     false
   );
 
-  document.getElementById("wormhole").addEventListener(
+  document.getElementById("scrap").addEventListener(
     "click",
     () => {
-      newBox();
+      newScrap();
     },
     false
   );
@@ -184,7 +186,7 @@ window.onload = event => {
   document.getElementById("save").addEventListener(
     "click",
     () => {
-      document.write(exportBoxes());
+      document.write(exportScrapes());
     },
     false
   );
@@ -198,7 +200,7 @@ window.onload = event => {
       console.log("saved parse", saved[0]);
       saved.forEach(box => {
         console.log("box", box, box.style, decodeURI(box.html));
-        new Box(box.style, box.html);
+        new Scrap(box.style, box.html);
       });
     },
     false
