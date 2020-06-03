@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <style>
+      body.isDragging {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+      }
+      .box {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        width: 100px;
+        height: 100px;
+        background: white;
+        padding: 10px;
+        z-index: 1;
+      }
+      .box.is-dragover {
+        background: magenta;
+      }
+      .box .edit {
+        height: 100%;
+        width: 100%;
+      }
+      .box .handle {
+        position: absolute;
+        display: none;
+        width: 10px;
+        height: 10px;
+        background: black;
+        content: "";
+        cursor: se-resize;
+      }
+      .move .box .handle {
+        cursor: grab;
+      }
+      .box .handle.nw-handle {
+        top: 0px;
+        left: 0px;
+      }
+      .box .handle.ne-handle {
+        top: 0px;
+        right: 0px;
+      }
+      .box .handle.sw-handle {
+        bottom: 0px;
+        left: 0px;
+      }
+      .box .handle.se-handle {
+        bottom: 0px;
+        right: 0px;
+      }
+      .box.border {
+        border: 1px solid lightseagreen;
+      }
+      .box:hover {
+        border: 1px solid blue;
+        margin: -1px;
+      }
+      .box:hover .handle {
+        display: block;
+        z-index: 100;
+      }
+    </style>
+    <script src="worms.js"></script>
+  </head>
+  <body>
+    <button id="wormhole">add scrap</button>
+    <button id="save">save desk</button>
+    <button id="import">import desk</button>
+    <div id="desk"></div>
+  </body>
+</html>
