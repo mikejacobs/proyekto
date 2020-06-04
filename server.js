@@ -1,3 +1,4 @@
+// read all files in dir
 const testFolder = "./files/";
 const fs = require("fs");
 

@@ -1,6 +1,3 @@
-// Add event listener for style changes
-// https://stackoverflow.com/questions/2157963/is-it-possible-to-listen-to-a-style-change-event/20683311#20683311
-
 let boxes = [];
 let desk;
 let currentTarget;
@@ -91,7 +88,7 @@ class Scrap {
 }
 
 start = {};
-window.mouseUp = target => {
+window.mouseUp = e => {
   document.body.classList.remove("isDragging");
   document.body.classList.remove("move");
   document.body.classList.remove("resize");
@@ -153,7 +150,6 @@ defaultScrap = {
 
 newScrap = () => {
   new Scrap();
-  //   moveListener();
 };
 
 window.onload = event => {
@@ -177,7 +173,7 @@ window.onload = event => {
 
   document.getElementById("scrap").addEventListener(
     "click",
-    () => {
+    e => {
       newScrap();
     },
     false
@@ -185,14 +181,14 @@ window.onload = event => {
 
   document.getElementById("save").addEventListener(
     "click",
-    () => {
+    e => {
       document.write(exportScrapes());
     },
     false
   );
   document.getElementById("import").addEventListener(
     "click",
-    () => {
+    e => {
       // prompt
       // create new boxes from json
       let saved = JSON.parse(prompt("Paste desk", "<>"));
