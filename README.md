@@ -1,4 +1,4 @@
-Inspector driven design!
+**Inspector driven web wackiness!**
 
 Run prototype by opening index.html in browser.
 
