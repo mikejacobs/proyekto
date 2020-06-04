@@ -4,7 +4,7 @@ Run prototype by opening index.html in browser.
 
 Only tested in Firefox.
 
-See saved.json and saved-preview.pngfor sample.
+See saved.json and saved-preview.png for sample.
 
 TODO:
 
