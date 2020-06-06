@@ -124,8 +124,8 @@ window.mouseDown = e => {
 window.divMove = e => {
   e.preventDefault();
   e.stopPropagation();
-  currentTarget.style.top = e.pageY + "px";
-  currentTarget.style.left = e.pageX + "px";
+  currentTarget.style.top = e.pageY - desk.offsetTop + "px";
+  currentTarget.style.left = e.pageX - desk.offsetLeft + "px";
 };
 window.divResize = e => {
   e.preventDefault();

@@ -1,4 +1,7 @@
 /* prevent text selection when moving/resizing */
+body {
+  font-family: Helvetica;
+}
 body.isDragging {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -8,8 +11,34 @@ body.isDragging {
   -o-user-select: none;
   user-select: none;
 }
+#desk,
+#phone-guide {
+  width: 375px;
+  position: absolute;
+  margin-left: -187px;
+  height: 100%;
+  left: 50%;
+  right: 50%;
+}
+#phone-guide {
+  z-index: 200;
+  width: 373px;
+  border: 1px solid black;
+  outline: 1px solid white;
+  top: -1px;
+  bottom: -1px;
+  pointer-events: none;
+}
+#phone-guide:before {
+  content: "Viewable area on typical phone";
+  margin: 5px auto;
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 10px;
+}
 #edit-ui {
-  z-index: 1000;
+  z-index: 100;
 }
 .box {
   position: absolute;
@@ -17,7 +46,6 @@ body.isDragging {
   left: 100px;
   width: 100px;
   height: 100px;
-  background: white;
   padding: 10px;
   z-index: 1;
 }
